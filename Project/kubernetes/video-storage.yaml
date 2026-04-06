@@ -15,7 +15,7 @@ spec:
       containers:
         - name: video-storage
           image: video-storage:latest
-          imagePullPolicy: IfNotPresent  # Use locally built image rather than pulling from a registry
+          imagePullPolicy: Always  # Use locally built image rather than pulling from a registry
           ports:
             - containerPort: 4000
           env:

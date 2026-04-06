@@ -43,6 +43,8 @@ spec:
                   key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
               value: postgres  # Default database created on startup
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata  # Subdirectory avoids lost+found conflict
           volumeMounts: # Where the mounted volumes should appear inside the container 
             - name: postgres-data
               mountPath: /var/lib/postgresql/data  # Where postgres stores its data files

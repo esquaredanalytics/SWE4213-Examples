@@ -1,0 +1,10 @@
+node_modules/
+frontend/dist/
+terraform/terraform.tfvars
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.backup
+**/.terraform.lock.hcl
+Project/terraform/.terraform.lock.hcl
+Project/terraform/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.117.1/darwin_arm64/terraform-provider-azurerm_v3.117.1_x5
+Project/terraform/terraform.tfvars
