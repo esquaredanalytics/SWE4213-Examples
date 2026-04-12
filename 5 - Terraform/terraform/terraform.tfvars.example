@@ -1,0 +1,10 @@
+# Copy this file to terraform.tfvars and fill in your own values.
+# Do NOT commit terraform.tfvars — add it to .gitignore.
+
+resource_group_name = "portfolio-rg"
+location            = "canadacentral"
+acr_name            = "myportfolioacr123"   # Must be globally unique, alphanumeric only
+app_name            = "portfolio"
+db_server_name      = "myportfolio-db-123"  # Must be globally unique
+db_admin_user       = "pgadmin"
+db_admin_password   = "ChangeMe123!"        # Use a strong password

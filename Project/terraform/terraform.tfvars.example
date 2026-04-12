@@ -1,0 +1,10 @@
+# terraform.tfvars.example
+# Copy this file to terraform.tfvars and fill in your own values.
+# Do NOT commit terraform.tfvars to git — add it to .gitignore.
+
+resource_group_name = "video-streaming-rg"
+location            = "canadacentral"
+acr_name            = "myuniqueacrname123"   # Must be globally unique!
+aks_cluster_name    = "video-streaming-aks"
+node_count          = 2
+node_vm_size        = "Standard_B2s"

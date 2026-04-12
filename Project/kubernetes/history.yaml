@@ -15,7 +15,7 @@ spec:
       containers:
         - name: history
           image: history:latest # This is the docker image we created
-          imagePullPolicy: IfNotPresent  # Use locally built image rather than pulling from a registry
+          imagePullPolicy: Always  # Use locally built image rather than pulling from a registry
           ports:
             - containerPort: 5000
           env:
