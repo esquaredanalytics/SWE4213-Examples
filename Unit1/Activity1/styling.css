@@ -1,7 +1,10 @@
 body {
     background-color: gray;
-
     /*TODO 2: Center everything horizontally on the screen (including text) */
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    display: flex;
 }
 
 h1 {
@@ -19,3 +22,6 @@ border-radius: 23px;
 }
 
 /* TODO 3: Add style for div so that it contains p. Hint: This should only take one attribute. */
+.mainDiv {
+    max-width: 400px;
+}

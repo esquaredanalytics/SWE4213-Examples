@@ -15,3 +15,6 @@ This repo is where you are going to store all of your activity code. Note that t
 3) Create a new branch off of main.
 4) Update the README.md to include your name. Commit the change and push your branch.
 5) Create a pull request from your new branch on your remote to `esquaredanalytics/main`.
+
+##
+Adding Aditya Bhosale as Collaborator to the project
