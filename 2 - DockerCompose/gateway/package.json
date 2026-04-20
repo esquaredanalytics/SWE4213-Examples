@@ -1,0 +1,12 @@
+{
+    "name": "gateway",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+      "start": "node src/index.js"
+    },
+    "description": "Gateway microservice",
+    "dependencies": {
+      "express": "^5.2.1"
+    }
+  }

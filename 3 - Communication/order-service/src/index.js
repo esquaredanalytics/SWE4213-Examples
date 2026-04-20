@@ -26,20 +26,15 @@ app.post("/orders", async (req, res) => {
     //
     // Make a PUT request to: `${INVENTORY_URL}/items/${itemId}/reserve`
     // with a JSON body: { quantity }
-    //
-    // Use the built-in fetch() function:
-    //   const response = await fetch(___, {
-    //     method: "PUT",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ quantity }),
-    //   });
-    //
-    // If the response is not ok, read the error and throw it so the catch
-    // block returns it to the client:
-    //   if (!response.ok) {
-    //     const err = await response.json();
-    //     throw new Error(err.error || "Inventory reservation failed");
-    //   }
+    const response = await fetch(`${INVENTORY_URL}/items/${itemId}/reserve`, {//makes an HTTP request to another service and waits for a response ( in this case we are calling the inventory service to reserve a specific item)
+      method: "PUT",//inicates we are updating a resource (reserving inventory) rather than creating or retrieving data
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify({quantity}),//sends the quantity to reserve
+    });
+     if(!response.ok) {
+      const err = await response.json(); //extracts the error message from the response body if the reservation fails (e.g., not enough stock)
+      throw new Error(err.error || "Inventory reservation failed");//throws an error with the message from the inventory service or a default message if the reservation fails
+     }
 
     // Build and store the confirmed order
     const order = {
@@ -53,11 +48,13 @@ app.post("/orders", async (req, res) => {
     orders.push(order);
 
     // TODO (Part 3): Publish an "order.placed" event to RabbitMQ.
-    //
-    // Send the order object as a JSON message to the "order.placed" queue:
-    //   channel.sendToQueue("order.placed", Buffer.from(JSON.stringify(order)));
-    //
-    // Add a console.log so you can see when events are published.
+    const connection = await connectWithRetry(RABBITMQ_URL);
+    const channel = await connection.createChannel();
+    await channel.assertQueue("order.placed", { durable: false });
+
+    channel.sendToQueue("order.placed", Buffer.from(JSON.stringify(order)));
+
+    console.log("Published event to order.placed queue:", order);
 
     res.status(201).json(order);
   } catch (err) {
@@ -86,10 +83,10 @@ async function connectWithRetry(url, retries = 10, delay = 3000) {
 async function main() {
   // TODO (Part 3): Connect to RabbitMQ and store the channel.
   //
-  // 1. Connect:   const connection = await connectWithRetry(RABBITMQ_URL);
-  // 2. Channel:   channel = await connection.createChannel();
-  // 3. Assert queue: await channel.assertQueue("order.placed", { durable: false });
-  // 4. Log success: console.log("Connected to RabbitMQ");
+  const connection = await connectWithRetry(RABBITMQ_URL);
+  channel = await connection.createChannel();
+  await channel.assertQueue("order.placed", { durable: false });
+  console.log("Connected to RabbitMQ");
 
   app.listen(PORT, () => {
     console.log(`Order service running on port ${PORT}`);

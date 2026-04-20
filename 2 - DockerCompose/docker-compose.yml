@@ -12,15 +12,15 @@ services:
     restart: "no"
 
   # TODO: Add your gateway service here
-  # gateway:
-  #   image: gateway
-  #   build:
-  #     context: ???
-  #     dockerfile: ???
-  #   container_name: gateway
-  #   ports:
-  #     - "???:???"
-  #   environment:
-  #     - PORT=???
-  #     - CATALOG_URL=???
-  #   restart: "no"
+   gateway:
+     image: gateway
+     build:
+       context: ./gateway
+       dockerfile: Dockerfile
+     container_name: gateway
+     ports:
+       - "4002:4002"
+     environment:
+       - PORT=4002
+       - CATALOG_URL=http://catalog:4000
+     restart: "no"
